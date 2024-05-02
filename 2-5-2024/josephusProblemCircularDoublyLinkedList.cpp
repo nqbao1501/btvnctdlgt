@@ -47,8 +47,8 @@ void Print(List list)
 void altPrint(List list)
 {
     Node* temp = list.head;
-    Node* temp2 = temp->prev; // Start from the tail
-    cout << temp2->data << " "; // Print the last node (tail)
+    Node* temp2 = temp->prev;
+    cout << temp2->data << " "; 
     while (temp2 != list.head)
     {
         temp2 = temp2->prev;
@@ -91,7 +91,7 @@ int JosephusProblem(int N, int M)
         temp = nextPerson; 
     }
 
-    return List.head->data; // Return the survivor's position
+    return List.head->data; 
 }
 
 int main()
