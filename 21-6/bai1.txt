@@ -1,0 +1,106 @@
+#include <iostream>
+using namespace std;
+
+struct linkedNode
+{
+    int pageNumber;
+    int sectionNumber;
+    linkedNode* next;
+};
+struct linkedList
+{
+    linkedNode head;
+};
+int totalNumOfPages(linkedNode* head)
+{
+    int pageNum = 0;
+    linkedNode* temp = head;
+    while(temp->next == nullptr)
+    {
+        pageNum += temp->pageNumber;
+    }
+    return pageNum;
+}
+
+struct treeNode{
+    int chapterNumber;
+    string chapterName;
+    treeNode* left;
+    treeNode* right;
+    linkedNode* sectionHead;
+    int pageCount;
+};
+void updateChapterPageCount(treeNode* node)
+{
+    node->pageCount = totalNumOfPages(node->sectionHead);
+}
+treeNode* newTreeNode(int chapterNum, string chapterName)
+{
+    treeNode* temp = new treeNode;
+    temp->chapterName = chapterName;
+    temp->chapterNumber = chapterNum;
+    temp->left = temp->right = nullptr;
+    temp->sectionHead = nullptr;
+    return temp;
+}
+treeNode* insert(treeNode* treeNode, int chapterNum, string chapterName)
+{
+    if (treeNode == nullptr)
+        return newTreeNode(chapterNum, chapterName);
+
+    if (chapterNum < treeNode->chapterNumber)
+        treeNode->left = insert(treeNode->left, chapterNum, chapterName);
+    else if (chapterNum > treeNode->chapterNumber)
+        treeNode->right = insert(treeNode->right, chapterNum, chapterName);
+
+    // Return the (unchanged) node pointer
+    return treeNode;
+}
+//1.	Xác định số chương của cuốn sách
+void totalChapter (treeNode* root, int i)
+{
+    if (root != nullptr)
+    {
+        totalChapter(root->left,i);
+        totalChapter(root->right,i);
+        i++;
+    }
+}
+//2.	Tìm chương dài nhất của cuốn sách
+int findMaxPage(struct treeNode* root) {
+    int max_page = 0;
+
+    void traverse(struct treeNode*  root) {
+        if (root == NULL) {
+        return;
+        }
+
+    max_page = (max_page > root->pagecount) ? max_value : root->pagecount;
+
+        traverse(root->pagecount);
+        traverse(root->pagecount);
+    }
+
+    traverse(root);
+    return max_page;
+}
+//4.	Tìm một chương bất kỳ và in ra đề mục của chương đó 
+string searchChapterName(struct treeNode* root, int chapterNumber)
+{
+    if (root->chapterNumber = chapterNumber)
+        return root->chapterName;
+
+    if (root->chapterNumber < chapterNumber)
+        return searchChapterName(root->right, chapterNumber);
+
+    return searchChapterName(root->left, chapterNumber);
+}
+struct BinaryTree
+{
+    treeNode* root ;
+};
+int main()
+{
+
+    
+}
